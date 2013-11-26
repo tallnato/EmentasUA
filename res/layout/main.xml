@@ -11,7 +11,7 @@
         <com.mobfox.sdk.MobFoxView  
 		  android:id="@+id/mobFoxView"  
 		  android:layout_width="fill_parent"  
-		  android:layout_height="50dp"  
+		  android:layout_height="25dp"  
 		  publisherId="9b553b2782c3dbfbeb7b482109518f5f" 
 		  mode="live" 
 		  includeLocation="false"
@@ -24,6 +24,7 @@
             android:id="@android:id/tabcontent"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
+            
             <include android:id="@+id/santiago"  layout="@layout/santiago" /> 
             <include android:id="@+id/crasto"  layout="@layout/crasto" /> 
             <include android:id="@+id/snackbar"  layout="@layout/snackbar" /> 

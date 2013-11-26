@@ -1,15 +1,25 @@
-package org.example.ementasua;
+package org.ementasua;
 
-import org.example.ementasua.EmentasPicker.*;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
+import org.ementasua.EmentasPicker.Cantina;
+import org.ementasua.EmentasPicker.Ementa;
+import org.ementasua.EmentasPicker.Pratos;
+
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.app.TabActivity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
@@ -22,31 +32,66 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+
 public class EmentasUA extends TabActivity {
-	private final EmentasPicker ep = new EmentasPicker();
+	private EmentasPicker ep;
 	private Handler mHandler; 			// Need handler for callbacks to the UI thread
 	private ProgressDialog pPialog;
-	private final Context ct = this;
+	private boolean mostraTudo = true;
+	//private final Context ct = this;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		
+	}
+	
+	@Override
+	protected void onResume(){
+		super.onResume();
 		setContentView(R.layout.main);
-
+		
 		mHandler = new Handler();
 		createTabs();
 
-		startParseOfEmentas();    
+		ep = EmentasPicker.getEmentasPicker();
+		
+		if(!checkWiFi3G()){
+			makeDialog();
+			return;
+		}
+		
+		startParseOfEmentas();  
+		
+		TextView tv1 = (TextView) findViewById(R.id.horaS);
+		TextView tv2 = (TextView) findViewById(R.id.horaC);
+		TextView tv3 = (TextView) findViewById(R.id.horaSB);
+		SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
+		String currentTime = formatter.format(new Date());
+		tv1.setText(currentTime);
+		tv2.setText(currentTime);
+		tv3.setText(currentTime);
+		
+		
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);		//Tirar a preferencia de inicio de cantina
+		mostraTudo = sharedPreferences.getBoolean("info", true);
+	
 	}
 
+	
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item){
 		switch(item.getItemId()){
 		case R.id.refresh:
-			getEmentas();
+			Toast.makeText(this, "Em construção", Toast.LENGTH_SHORT).show();
 			return true;
-		case R.id.set_about:
+		case R.id.about:
 			startActivity(new Intent(this ,About.class));
+			return true;
+		case R.id.prefs:
+			startActivity(new Intent(this ,Prefs.class));
 			return true;
 		}	
 		return false;
@@ -60,23 +105,23 @@ public class EmentasUA extends TabActivity {
 		return true;
 	}
 	
-
 	private void createTabs(){
 		Resources rec = getResources();
 		TabHost mTabHost = getTabHost();
 
-		mTabHost.addTab(mTabHost.newTabSpec("santiago").setIndicator("Santiago", rec.getDrawable(R.drawable.ic_tab_artists)).setContent(R.id.santiago));
-		mTabHost.addTab(mTabHost.newTabSpec("crasto").setIndicator("Crasto", rec.getDrawable(R.drawable.ic_tab_artists)).setContent(R.id.crasto));
-		mTabHost.addTab(mTabHost.newTabSpec("snackbar").setIndicator("SnackBar", rec.getDrawable(R.drawable.ic_tab_artists)).setContent(R.id.snackbar));
+		mTabHost.addTab(mTabHost.newTabSpec("santiago").setIndicator("Santiago", rec.getDrawable(R.drawable.ic_tabs_xml)).setContent(R.id.santiago));
+		mTabHost.addTab(mTabHost.newTabSpec("crasto").setIndicator("Crasto", rec.getDrawable(R.drawable.ic_tabs_xml)).setContent(R.id.crasto));
+		mTabHost.addTab(mTabHost.newTabSpec("snackbar").setIndicator("SnackBar", rec.getDrawable(R.drawable.ic_tabs_xml)).setContent(R.id.snackbar));
 
-		mTabHost.setCurrentTab(0);
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);		//Tirar a preferencia de inicio de cantina
+		String tmp = sharedPreferences.getString("listCant", "0");
+		int tab=0;
+		if(tmp.equals("0") || tmp.equals("1") || tmp.equals("2"))
+			tab = Integer.parseInt( tmp ) ;
+		mTabHost.setCurrentTab(tab);
 	}
 
-
-
-
 	private void getEmentas(){
-		Log.d("CENAS", "setted=="+ep.getSetted());
 		if( !ep.getSetted()){
 			if(!ep.Start()){
 				pPialog.cancel();
@@ -122,9 +167,15 @@ public class EmentasUA extends TabActivity {
 
 	private void printEmenta(TableLayout tl, Ementa ement, int index){
 		if(ement.aberto){
-			for(int i=0; i<ement.pratos.size(); i++){
-				Pratos p = ement.pratos.get(i);
-				tl.addView( getRow(p) , index+i);
+			ArrayList<Pratos> list = ement.pratos;
+			int total = 0;
+			for(Pratos p : list){
+				if(!mostraTudo){
+					if(p.tipo.contains("Prato") == false){
+						continue;
+					}
+				}
+				tl.addView( getRow(p) , index+ total++);
 			}
 		}else{
 			tl.addView( getRow(ement.texto) , index);
@@ -177,24 +228,23 @@ public class EmentasUA extends TabActivity {
 		tr.addView(tv_tipo);
 		tr.addView(tv_prato);
 
-		
-		Log.d("cenas", pratos.tipo+" > "+pratos.prato);
-
 		return tr;
 	}	 
 
 
 	protected void startParseOfEmentas() {		
+		if(!ep.getSetted())	
 			pPialog = ProgressDialog.show(this, "", "A carregar...", true);
 			// Fire off a thread to do some work that we shouldn't do directly in the UI thread
 			Thread t = new Thread() {
 				public void run() {
-					getEmentas();
+					if(!ep.getSetted())	
+						getEmentas();
 					mHandler.post(mUpdateResults);
 				}
 			};
 			t.start();
-			
+		
 	}
 
 	
@@ -203,7 +253,12 @@ public class EmentasUA extends TabActivity {
 	// Create runnable for posting
 	private final Runnable mUpdateResults = new Runnable() {
 		public void run() {
-			updateResultsInUi();
+			if(ep.getSetted())
+				updateResultsInUi();
+			else{
+				pPialog.cancel();
+				makeDialog();
+			}
 		}
 	};
 	
@@ -212,8 +267,29 @@ public class EmentasUA extends TabActivity {
 		printSantiago();
 		printCastro();
 		printSnackBar();
-		pPialog.cancel();
+		if( pPialog != null &&  pPialog.isShowing() )
+			pPialog.cancel();
 	}	 
 
+	
+	private void makeDialog(){
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage(getString(R.string.notNet))
+		       .setCancelable(false)
+		       .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+		           public void onClick(DialogInterface dialog, int id) {
+		                //((Activity) ct).finish();
+		           }
+		       });
+		AlertDialog alert = builder.create();
+		alert.show();
+	}
+	
+	private boolean checkWiFi3G(){ 	  
+		  ConnectivityManager connec =  (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+		  return (   connec.getActiveNetworkInfo() != null &&
+				  connec.getActiveNetworkInfo().isAvailable() &&
+				  connec.getActiveNetworkInfo().isConnected()   );
+	}
 
 }

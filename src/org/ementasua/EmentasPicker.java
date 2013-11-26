@@ -1,4 +1,4 @@
-package org.example.ementasua;
+package org.ementasua;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -8,14 +8,10 @@ import java.util.regex.Pattern;
 
 
 public class EmentasPicker{
-	private String inputLine;
-	private StringBuffer conteudoUtil;
-	private BufferedReader in;
-	private URL url;
+
 	private EmentaCantina ementasCantina;
 	private String[] conteudoLinhas;
-	private String output;
-	
+
 	private int santAlm;
 	private int santJant;
 	private int crastAlm;
@@ -25,10 +21,22 @@ public class EmentasPicker{
 	
 	private boolean setted=false;
 	
+	private static final EmentasPicker INSTANCE = new EmentasPicker();
+	
+	public static EmentasPicker getEmentasPicker(){
+		return INSTANCE;
+	}
+	
 	public EmentasPicker(){
 	}
 
 	public boolean Start(){
+		String inputLine;
+		StringBuffer conteudoUtil;
+		BufferedReader in;
+		URL url;
+		String output;
+		
 		conteudoUtil = new StringBuffer();
 		try {
 			url = new URL("http://www2.sas.ua.pt/site/temp/alim_ementas_V2.asp");
@@ -77,35 +85,22 @@ public class EmentasPicker{
 		for(int i = 0; i<conteudoLinhas.length; i++){
 			tmp = conteudoLinhas[i];
 			if(tmp.matches(".*Santiago.*") && tmp.matches(".*Almoço.*")){
-				//System.out.println("Found Santiago & almoço @ "+i);				//TODO remove
 				santAlm = i+1;
 			}
 			else if(tmp.matches(".*Santiago.*") && tmp.matches(".*Jantar.*")){
-				//System.out.println("Found Santiago & jantar @ "+i);				//TODO remove
 				santJant = i+1;
 			}
-			
 			else if(tmp.matches(".*Crasto.*") && tmp.matches(".*Almoço.*")){
-				//System.out.println("Found Crasto & almoço @ "+i);				//TODO remove
 				crastAlm = i+1;
 			}
 			else if(tmp.matches(".*Crasto.*") && tmp.matches(".*Jantar.*")){
-				//System.out.println("Found Crasto & ajntar @ "+i);				//TODO remove
 				crastJant = i+1;
 			}
-			
 			else if(tmp.matches(".*Snack-Bar.*")){
-				//System.out.println("Found Snack-Bar  @ "+i);					//TODO remove
 				snack = i+1;
 			}
 		}
 		fimLinhas = conteudoLinhas.length-1;
-		
-		/*System.out.println("\n\n\n");
-		for(int i = 0; i<conteudoLinhas.length; i++){
-			System.out.println(i+": "+conteudoLinhas[i]);						//TODO remove
-		}*/
-		
 		
 		//Get Santiago - Almoço
 		ementasCantina.santiago.almoco = makeEmenta(santAlm, santJant-2);
@@ -118,19 +113,6 @@ public class EmentasPicker{
 		//Get Snackbar
 		ementasCantina.snackbar.almoco = makeEmenta(snack, fimLinhas);
 		ementasCantina.snackbar.jantar = null;
-		
-		
-		
-		/*Ementa alm = ementasCantina.snackbar.almoco;
-		if(alm.texto != null){
-			System.out.println(alm.texto);
-		}
-		else{
-			for(Object o : alm.pratos.toArray()){
-				Pratos p = (Pratos)o;
-				System.out.println(p.tipo+": "+p.prato);
-			}
-		}*/
 		
 		setted = true;
 		return true;

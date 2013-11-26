@@ -3,19 +3,41 @@
 	<string name="app_name">EmentasUA</string>
     <string name="app_title">Ementas da Universidade de Aveiro</string>
     
+    <!--  Menu -->
     <string name="about_label">Sobre</string>
     <string name="about_shortcut">1</string>
     
-    <string name="refresh_label">Refresh</string>
+    <string name="refresh_label">Refrescar</string>
     <string name="refresh_shortcut">2</string>
     
+    <string name="prefs_label">Preferências</string>
+    <string name="prefs_shortcut">3</string>
+    
+    <!--  Sobre -->
     <string name="about_title">Sobre</string>
     <string name="about_text">Aplicação para mostrar as ementas das cantinas da Universidade de Aveiro\n\n
     						  Autor: Renato Almeida \n&lt;renato.m.alm@gmail.com&gt;		
-    						</string>
+    						</string>    
     
-    
+    <!--  Titulos de activity  -->
     <string name="santiago">Santiago</string> 
     <string name="crasto">Crasto</string>
     <string name="snackbar">SnackBar</string>
+    <string name="settings_title">Preferências</string>
+    
+    <!-- Preferencias -->
+    <string name="info_title">Ementa completa</string>
+    <string name="info_summary_on">Mostra ementa toda</string>
+    <string name="info_summary_off">Mostra só os pratos</string>
+    
+    
+    <string name="listCant_title">Cantina a mostar</string>
+    <string name="listCant_summary">Cantina que mostra quando inicia</string>
+    
+    <string name="mostra_title">Ordem Ementas</string>
+    <string name="mostra_summary_on">Mostra ementa da refeição mais proxima</string>
+    <string name="mostra_summary_off">Mostra almoço e depois jantar</string>
+    
+    <!--  Misc -->
+    <string name="notNet">Impossivel retirar as informações, por favor verifique se tem internet!!</string>
 </resources>

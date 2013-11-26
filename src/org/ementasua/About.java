@@ -1,4 +1,4 @@
-package org.example.ementasua;
+package org.ementasua;
 
 import android.app.Activity;
 import android.os.Bundle;

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	<CheckBoxPreference
+		android:key="info"
+		android:title="@string/info_title"
+		android:summaryOn="@string/info_summary_on"
+		android:summaryOff="@string/info_summary_off"
+		android:defaultValue="true" 
+		android:enabled="true"
+		/>
+		
+	 <CheckBoxPreference
+		android:key="mostra"
+		android:title="@string/mostra_title"
+		android:summaryOn="@string/mostra_summary_on"
+		android:summaryOff="@string/mostra_summary_off"
+		android:defaultValue="false" 
+		android:enabled="false"
+		/>	
+		
+	 <ListPreference
+	 	android:key="listCant"
+        android:title="@string/listCant_title"
+        android:summary="@string/listCant_summary"
+        android:entries="@array/Cantinas"
+        android:entryValues="@array/Cantinas_val"
+        android:defaultValue="0" />
+        
+</PreferenceScreen>
