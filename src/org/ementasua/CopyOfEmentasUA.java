@@ -1,7 +1,6 @@
 package org.ementasua;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -225,14 +224,14 @@ public class CopyOfEmentasUA extends TabActivity
 
 	private void updateResultsInUi()
 	{
-		TextView tv1 = (TextView) findViewById(R.id.horaS);
+		/*TextView tv1 = (TextView) findViewById(R.id.horaS);
 		TextView tv2 = (TextView) findViewById(R.id.horaC);
 		TextView tv3 = (TextView) findViewById(R.id.horaSB);
 		SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
 		String currentTime = formatter.format(ep.getEmentaCantina().date);
 		tv1.setText(currentTime);
 		tv2.setText(currentTime);
-		tv3.setText(currentTime);
+		tv3.setText(currentTime);*/
 
 		printSantiago();
 		printCastro();

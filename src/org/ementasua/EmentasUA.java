@@ -50,7 +50,6 @@ public class EmentasUA extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-
 	}
 
 	public void showSantiago(View v)
@@ -59,9 +58,11 @@ public class EmentasUA extends Activity
 		crasto = false;
 		snackbar = false;
 
-		TextView tv = (TextView) v;
-		tv.setBackgroundResource(R.drawable.top_button);
-		tv.setTextColor(getResources().getColor(R.color.prato));
+		if(v != null) {
+			TextView tv = (TextView) v;
+			tv.setBackgroundResource(R.drawable.top_button);
+			tv.setTextColor(getResources().getColor(R.color.prato));
+		}
 
 		TextView tv_1 = (TextView) this.findViewById(R.id.Title_Crasto);
 		TextView tv_2 = (TextView) this.findViewById(R.id.Title_SnackBar);
@@ -85,9 +86,11 @@ public class EmentasUA extends Activity
 		crasto = true;
 		snackbar = false;
 
-		TextView tv = (TextView) v;
-		tv.setBackgroundResource(R.drawable.top_button);
-		tv.setTextColor(getResources().getColor(R.color.prato));
+		if(v != null) {
+			TextView tv = (TextView) v;
+			tv.setBackgroundResource(R.drawable.top_button);
+			tv.setTextColor(getResources().getColor(R.color.prato));
+		}
 
 		TextView tv_1 = (TextView) this.findViewById(R.id.Title_Santiago);
 		TextView tv_2 = (TextView) this.findViewById(R.id.Title_SnackBar);
@@ -111,10 +114,11 @@ public class EmentasUA extends Activity
 		crasto = false;
 		snackbar = true;
 
-		TextView tv = (TextView) v;
-		tv.setBackgroundResource(R.drawable.top_button);
-		tv.setTextColor(getResources().getColor(R.color.prato));
-
+		if(v != null) {
+			TextView tv = (TextView) v;
+			tv.setBackgroundResource(R.drawable.top_button);
+			tv.setTextColor(getResources().getColor(R.color.prato));
+		}
 		TextView tv_1 = (TextView) this.findViewById(R.id.Title_Crasto);
 		TextView tv_2 = (TextView) this.findViewById(R.id.Title_Santiago);
 
@@ -164,12 +168,15 @@ public class EmentasUA extends Activity
 
 		if(santiago) {
 			this.findViewById(R.id.Title_Santiago).setBackgroundResource(R.drawable.top_button);
+			showSantiago(null);
 		}
 		if(crasto) {
 			this.findViewById(R.id.Title_Crasto).setBackgroundResource(R.drawable.top_button);
+			showCrasto(null);
 		}
 		if(snackbar) {
 			this.findViewById(R.id.Title_SnackBar).setBackgroundResource(R.drawable.top_button);
+			showSnackBar(null);
 		}
 
 	}
@@ -179,10 +186,23 @@ public class EmentasUA extends Activity
 	{
 		switch(item.getItemId()) {
 			case R.id.refresh:
-				//Toast.makeText(this, "Em construção", Toast.LENGTH_SHORT).show();
-				setContentView(R.layout.main);
+				File f = new File(this.getFilesDir(), nomeFicheiro);
+				f.delete();
+
 				mHandler = new Handler();
-				//createTabs();
+				ep = getEmentasFile(getFilesDir());
+				Calendar cal = Calendar.getInstance();
+				if(ep == null
+						|| (ep.getEmentaCantina().date.getDate() != cal.get(Calendar.DATE)
+								|| ep.getEmentaCantina().date.getMonth() != cal.get(Calendar.MONTH) || (ep
+								.getEmentaCantina().date.getYear() + 1900) != cal.get(Calendar.YEAR))) {
+					ep = EmentasPicker.getEmentasPicker();
+					if(!checkWiFi3G()) {
+						makeDialog();
+						return true;
+					}
+				}
+				updateResultsInUi();
 				startParseOfEmentas();
 				return true;
 			case R.id.about:
@@ -310,9 +330,16 @@ public class EmentasUA extends Activity
 
 	private void updateResultsInUi()
 	{
-		printSantiago();
-		printCrasto();
-		printSnackBar();
+		if(santiago) {
+			showSantiago(null);
+		}
+		if(crasto) {
+			showCrasto(null);
+		}
+		if(snackbar) {
+			showSnackBar(null);
+		}
+
 		if(pPialog != null && pPialog.isShowing())
 			pPialog.cancel();
 	}
@@ -356,13 +383,16 @@ public class EmentasUA extends Activity
 		return tr;
 	}
 
-	private TableRow getRow(Pratos pratos)
+	private TableRow getRow(Pratos pratos, TableLayout tl)
 	{
 		TableRow tr;
 		TextView tv_tipo;
 		TextView tv_prato;
 
-		tr = new TableRow(this);
+		//tr = new TableRow(this);
+
+		tr = (TableRow) LayoutInflater.from(this).inflate(R.layout.tr_layout, tl, false);
+
 		tv_tipo = new TextView(this);
 		tv_prato = new TextView(this);
 
@@ -376,15 +406,14 @@ public class EmentasUA extends Activity
 		tv_prato.setPadding(15, 5, 5, 0);
 		tv_prato.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);
 		tv_prato.setSingleLine(false);
-		tv_prato.setClickable(true);
+		tv_prato.setId(55568);
+		tv_prato.setBackgroundResource(R.drawable.tr_style);
 
-		tv_prato.setHapticFeedbackEnabled(true);
-
-		tv_prato.setOnLongClickListener(new OnLongClickListener() {
+		tr.setOnLongClickListener(new OnLongClickListener() {
 			@Override
 			public boolean onLongClick(View v)
 			{
-				TextView tv = (TextView) v;
+				TextView tv = (TextView) v.findViewById(55568);
 				if(tv.getText().equals("") || tv.getText().length() == 0)
 					return true;
 				ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
@@ -412,7 +441,7 @@ public class EmentasUA extends Activity
 						continue;
 					}
 				}
-				tl.addView(getRow(p), index + total++);
+				tl.addView(getRow(p, tl), index + total++);
 			}
 		} else {
 			tl.addView(getRow(ement.texto), index);

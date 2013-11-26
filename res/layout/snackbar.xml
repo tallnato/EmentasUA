@@ -11,13 +11,8 @@
         android:layout_height="wrap_content"
         android:layout_width="fill_parent" 
  		android:shrinkColumns="1">
- 		<TableRow>
-	            <TextView
-                android:id="@+id/horaSB"
-                style="@style/Hora" 
-				/>
-        </TableRow>
-	 	<TableRow   android:paddingTop="3dip">
+
+	 	<TableRow   android:paddingTop="1dip">
 	            <TextView
                 style="@style/Topo"
                 android_layout_span="2"

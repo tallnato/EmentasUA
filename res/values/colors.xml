@@ -5,4 +5,5 @@
 	<color name="line">#1CC101</color>
 	<color name="line_light">#4CFE2E</color>
 	<color name="black">#000000</color>
+	<color name="highlight">#55C0C0C0</color>
 </resources>
