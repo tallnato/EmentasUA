@@ -5,7 +5,7 @@
 		android:title="@string/refresh_label"
 		android:numericShortcut="@string/refresh_shortcut"
 		android:icon="@drawable/ic_menu_refresh"
-		android:enabled="false" />
+		android:enabled="true" />
 	<item
 		android:id="@+id/prefs"
 		android:title="@string/prefs_label"

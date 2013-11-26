@@ -31,7 +31,7 @@
     <string name="info_summary_off">Mostra só os pratos</string>
     
     
-    <string name="listCant_title">Cantina a mostar</string>
+    <string name="listCant_title">Cantina inicial</string>
     <string name="listCant_summary">Cantina que mostra quando inicia</string>
     
     <string name="mostra_title">Ordem Ementas</string>
