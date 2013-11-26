@@ -36,7 +36,7 @@ public class EmentasUA extends TabActivity {
 		mHandler = new Handler();
 		createTabs();
 
-		startParseOfEmentas();
+		startParseOfEmentas();    
 	}
 
 	@Override

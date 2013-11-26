@@ -8,6 +8,14 @@
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
+        <com.mobfox.sdk.MobFoxView  
+		  android:id="@+id/mobFoxView"  
+		  android:layout_width="fill_parent"  
+		  android:layout_height="50dp"  
+		  publisherId="9b553b2782c3dbfbeb7b482109518f5f" 
+		  mode="live" 
+		  includeLocation="false"
+		  animation="true"/> 
         <TabWidget
             android:id="@android:id/tabs"
             android:layout_width="fill_parent"
