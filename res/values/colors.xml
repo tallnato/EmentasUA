@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-	<color name="tipo">#6D75E7</color>
+	<color name="tipo">#1CC101</color>
 	<color name="prato">#FFFFFF</color>
+	<color name="line">#1CC101</color>
+	<color name="line_light">#4CFE2E</color>
+	<color name="black">#000000</color>
 </resources>

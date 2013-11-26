@@ -50,6 +50,4 @@
 	        android:layout_height="1dip"
 	        android:background="#FFFFFF" />
     </TableLayout>
-    
-    		
 </ScrollView>

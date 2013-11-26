@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/tabhost"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#000000">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <com.mobfox.sdk.MobFoxView  
+		  android:id="@+id/mobFoxView"  
+		  android:layout_width="fill_parent"  
+		  android:layout_height="25dp"  
+		  publisherId="9b553b2782c3dbfbeb7b482109518f5f" 
+		  mode="live" 
+		  includeLocation="false"
+		  animation="true"/> 
+        <TabWidget
+            android:id="@android:id/tabs"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+        <FrameLayout
+            android:id="@android:id/tabcontent"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+            
+            <include android:id="@+id/santiago"  layout="@layout/santiago" /> 
+            <include android:id="@+id/crasto"  layout="@layout/crasto" /> 
+            <include android:id="@+id/snackbar"  layout="@layout/snackbar" /> 
+        </FrameLayout>
+    </LinearLayout>
+</TabHost>
