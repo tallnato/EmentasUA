@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="fill_parent" 
+    android:background="#000000">
+    <!-- android:background="@drawable/santiago"-->
+
+     <TableLayout
+        android:id="@+id/tablelayoutC"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent" 
+        android:shrinkColumns="1">
+ 		
+	 	<TableRow  android:paddingTop="5dip">
+	            <TextView
+                style="@style/Topo"
+                android_layout_span="2"
+                android:layout_weight="1" 
+                android:textSize="18dip"
+                android:textStyle="bold"
+                android:text="Almoço" 
+                android:textColor="#FFFFFF"
+				/>
+        </TableRow>
+
+		<View
+		android:id="@+id/linetopC"
+        android:layout_height="1dip"
+        android:background="#FFFFFF" />
+		
+		<TableRow  android:paddingTop="20dip">
+	            <TextView
+                style="@style/Topo"
+                android:layout_span="2"
+                android:layout_weight="1"
+				android:textSize="18dip"
+				android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:text="Jantar" />
+        </TableRow>
+
+		<View 
+			android:id="@+id/linebottomC"
+	        android:layout_height="1dip"
+	        android:background="#FFFFFF" />
+    </TableLayout>
+</ScrollView>

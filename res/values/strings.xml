@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">EmentasUA</string>
+    <string name="app_title">Ementas da Universidade de Aveiro</string>
+    
+    <string name="about_label">Sobre</string>
+    <string name="about_shortcut">1</string>
+    
+    <string name="refresh_label">Refresh</string>
+    <string name="refresh_shortcut">2</string>
+    
+    <string name="about_title">Sobre</string>
+    <string name="about_text">Aplicação para mostrar as ementas das cantinas da Universidade de Aveiro\n\n
+    						  Autor: Renato Almeida \n&lt;renato.m.alm@gmail.com&gt;		
+    						</string>
+    
+    
+    <string name="santiago">Santiago</string> 
+    <string name="crasto">Crasto</string>
+    <string name="snackbar">SnackBar</string>
+</resources>

@@ -1,0 +1,74 @@
+ @Override
+    protected void onResume(){
+    	super.onResume();
+    	//cena();
+    }
+    
+private void cena(){
+    	if(ep == null){
+	    	ep = new EmentasPicker();
+			if(!ep.Start())
+				Toast.makeText(this, "Não foi possivel ligar ao site", Toast.LENGTH_SHORT);
+    	}
+    	if(this.getCurrentActivity().getTitle().equals("Santiago")){
+			TableLayout tl = (TableLayout) this.getCurrentActivity().findViewById(R.id.tablelayout);
+			printEmenta(ep.getCantina(0).ementa, 1+tl.indexOfChild(this.getCurrentActivity().findViewById(R.id.linetop)));
+			
+			printEmenta(ep.getCantina(1).ementa, 1+tl.indexOfChild(this.getCurrentActivity().findViewById(R.id.linebottom)));
+    	}else if(this.getCurrentActivity().getTitle().equals("Crasto")){
+    		TableLayout tl = (TableLayout) this.getCurrentActivity().findViewById(R.id.tablelayout);
+			printEmenta(ep.getCantina(2).ementa, 1+tl.indexOfChild(this.getCurrentActivity().findViewById(R.id.linetop)));
+			
+    	}else {
+    		TableLayout tl = (TableLayout) this.getCurrentActivity().findViewById(R.id.tablelayout);
+			printEmenta(ep.getCantina(4).ementa, 1+tl.indexOfChild(this.getCurrentActivity().findViewById(R.id.linetop)));
+    	}
+    	
+    	
+    	
+@SuppressWarnings("unused")
+	private boolean isOnline(Context context) {
+    	 //ConnectivityManager is used to check available network(s)
+        //ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        try {
+			if ( InetAddress.getByName("www.google.com").isReachable(3) ){
+			        //no network is available
+			        return false;
+			} else {
+			        //at least one type of network is available
+			        return true;
+			}
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	
+	
+	
+	    @SuppressWarnings("unused")
+	private void cleanCache(){
+    	 File dir = this.getCacheDir();
+         if(dir!= null && dir.isDirectory()){
+             File[] children = dir.listFiles();
+             if (children == null) {
+                 // Either dir does not exist or is not a directory
+             } else {
+                 File temp;
+                 for (int i = 0; i < children.length; i++) {
+                     temp = children[i];
+                     temp.delete();
+                 }
+             }
+
+         }
+
+    }    
+    
+/*	*/
+    
