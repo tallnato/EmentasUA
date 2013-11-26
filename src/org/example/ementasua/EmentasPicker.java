@@ -2,59 +2,33 @@ package org.example.ementasua;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.net.InetAddress;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
-import android.util.Log;
 
 public class EmentasPicker{
-	private float unixTime;
 	private String inputLine;
 	private StringBuffer conteudoUtil;
 	private BufferedReader in;
 	private URL url;
-	protected EmentaCantina ementasCantina;
-	private Cantina[] cantina;
+	private EmentaCantina ementasCantina;
 	private String[] conteudoLinhas;
 	private String output;
-	private boolean isOk=true;
+	
+	private int santAlm;
+	private int santJant;
+	private int crastAlm;
+	private int crastJant;
+	private int snack;
+	private int fimLinhas;
+	
+	private boolean setted=false;
 	
 	public EmentasPicker(){
-		Log.d("cenas", "inicio");
-		conteudoUtil = new StringBuffer();
-	}
-	
-	public boolean getOk(){
-		return isOk;
 	}
 
 	public boolean Start(){
-		/*
-		try {
-			if ( InetAddress.getByName("www.google.com").isReachable(2) ){
-			    //no network is available
-			    return false;
-			}
-		} catch (Exception e) {
-			return false;
-		} */
-		/*
-		try {
-			if ( !InetAddress.getByName("www.google.pt").isReachable(3) ){
-			    //no network is available
-				Log.d("cenas", "no network available");
-			    return false;
-			}
-			
-			url = new URL("http://www2.sas.ua.pt/site/temp/alim_ementas_V2.asp");
-			in = new BufferedReader( new InputStreamReader(url.openStream(),"ISO-8859-1"));
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}*/
-		
-		unixTime = System.currentTimeMillis();
 		conteudoUtil = new StringBuffer();
 		try {
 			url = new URL("http://www2.sas.ua.pt/site/temp/alim_ementas_V2.asp");
@@ -70,14 +44,14 @@ public class EmentasPicker{
 			}
 			while ((inputLine = in.readLine()) != null){
 				inputLine = inputLine.trim();
-				if(inputLine.matches(".*</table>.*"))  				// Se encontrar esta tag � porque para a frente n�o interessa mais
+				if(inputLine.matches(".*</table>.*"))  				// Se encontrar esta tag ï¿½ porque para a frente nï¿½o interessa mais
 					break;
 				if(inputLine.matches(".*<tr>.*")){	  			// Inicio de uma linha
 					while ((inputLine = in.readLine().trim()) != null){
 						if(inputLine.matches(".*</tr>.*")) 	 		// Fim da linha
 							break;
 						
-						inputLine = regexString("((width|height|bordercolor|style|bordercolorlight|colspan|bgcolor)=\"[^\"]*\")|(</?(font|a)[^>]*>)|(&nbsp;)|(</?p[^>]*>)|(\\|)|(<center>)|Refeit�rio", inputLine);			
+						inputLine = regexString("((width|height|bordercolor|style|bordercolorlight|colspan|bgcolor)=\"[^\"]*\")|(</?(font|a)[^>]*>)|(&nbsp;)|(</?p[^>]*>)|(\\|)|(<center>)|Refeitï¿½rio", inputLine);			
 						conteudoUtil.append(inputLine);		// Juntar tudo para a mesma string 
 					}
 					conteudoUtil.append("\n");
@@ -87,96 +61,150 @@ public class EmentasPicker{
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
-
-		output = regexString(" {2,}", conteudoUtil.toString(),""); // Retirar espaços repetidos
+		
+		output = regexString(" {2,}", conteudoUtil.toString()); // Retirar espaços repetidos
 		output = regexString("&atilde;", output, "ã");
+		output = regexString("(\\n(<td></td>)+)|</td>", output);
+		//output = regexString("\\n{2,}", output, "");
 		
 		conteudoLinhas = output.split("\\n");
 
-
 		ementasCantina = new EmentaCantina();
 
-		//Tirar dia 
-		ementasCantina.data = regexString("</?td>", conteudoLinhas[0]);
-		cantina = new Cantina[5];
-
-		for(int i=0, k=2; i<5; i++){
-			Ementa[] prato;
-
-			cantina[i] = new Cantina();
-
-			//tirar nome da cantina
-			String tmpL;
-			tmpL = regexString("</?td>", conteudoLinhas[k]);
-			tmpL = regexString("Refeitório", tmpL);
-
-			if(tmpL.matches(".*Jantar.*"))
-				cantina[i].hora = "Jantar";
-			else if (tmpL.matches(".*Almoco.*"))
-				cantina[i].hora = "Almoco";
-			else
-				cantina[i].hora = "";
-			cantina[i].nome = regexString("Jantar|Almoco", tmpL);
-
-			prato = new Ementa[10];
-
-			int h = ((i==2)||(i==3)?9:10);
-			for(int j=0; j < h; j++){
-				prato[j] = new Ementa();	
-				String tmp;
-
-				tmp = regexString("</td>", conteudoLinhas[k+2+j]);
-				String tmpArr[] = tmp.split("<td>");
-				//TODO melhorar isto	
-				if(tmpArr.length==2){
-					prato[j].tipo = tmpArr[1];
-					prato[j].prato = "";
-				}else					
-					if(!tmpArr[2].matches("(Refeições servidas no Refeitório de Santiago)|(Refeições servidas no Snack Bar)")){
-						prato[j].tipo = tmpArr[1];
-						prato[j].prato = tmpArr[2];
-					}
-					else{
-						cantina[i].aberto = false;
-						cantina[i].texto  = tmpArr[2];
-						break;
-					}
+		String tmp;
+		for(int i = 0; i<conteudoLinhas.length; i++){
+			tmp = conteudoLinhas[i];
+			if(tmp.matches(".*Santiago.*") && tmp.matches(".*Almoço.*")){
+				//System.out.println("Found Santiago & almoço @ "+i);				//TODO remove
+				santAlm = i+1;
 			}
-			k += ((i<2)?13:12);
-			cantina[i].ementa = prato;
+			else if(tmp.matches(".*Santiago.*") && tmp.matches(".*Jantar.*")){
+				//System.out.println("Found Santiago & jantar @ "+i);				//TODO remove
+				santJant = i+1;
+			}
+			
+			else if(tmp.matches(".*Crasto.*") && tmp.matches(".*Almoço.*")){
+				//System.out.println("Found Crasto & almoço @ "+i);				//TODO remove
+				crastAlm = i+1;
+			}
+			else if(tmp.matches(".*Crasto.*") && tmp.matches(".*Jantar.*")){
+				//System.out.println("Found Crasto & ajntar @ "+i);				//TODO remove
+				crastJant = i+1;
+			}
+			
+			else if(tmp.matches(".*Snack-Bar.*")){
+				//System.out.println("Found Snack-Bar  @ "+i);					//TODO remove
+				snack = i+1;
+			}
 		}
-		ementasCantina.cantina = cantina;
-
-		unixTime = ((System.currentTimeMillis() - unixTime));
-		Log.d("cenas","fim");
+		fimLinhas = conteudoLinhas.length-1;
+		
+		/*System.out.println("\n\n\n");
+		for(int i = 0; i<conteudoLinhas.length; i++){
+			System.out.println(i+": "+conteudoLinhas[i]);						//TODO remove
+		}*/
+		
+		
+		//Get Santiago - Almoço
+		ementasCantina.santiago.almoco = makeEmenta(santAlm, santJant-2);
+		//Get Santiago - jantar
+		ementasCantina.santiago.jantar = makeEmenta(santJant, crastAlm-2);
+		//Get Crasto - Almoço
+		ementasCantina.crasto.almoco = makeEmenta(crastAlm, crastJant-2);
+		//Get Crasto - Jantar
+		ementasCantina.crasto.jantar = makeEmenta(crastJant, snack-2);
+		//Get Snackbar
+		ementasCantina.snackbar.almoco = makeEmenta(snack, fimLinhas);
+		ementasCantina.snackbar.jantar = null;
+		
+		
+		
+		/*Ementa alm = ementasCantina.snackbar.almoco;
+		if(alm.texto != null){
+			System.out.println(alm.texto);
+		}
+		else{
+			for(Object o : alm.pratos.toArray()){
+				Pratos p = (Pratos)o;
+				System.out.println(p.tipo+": "+p.prato);
+			}
+		}*/
+		
+		setted = true;
 		return true;
 	}
 
-	public Cantina getCantina(int i){
-		return this.ementasCantina.cantina[i];
+	public boolean getSetted(){
+		return setted;
+	}
+	
+	public EmentaCantina getEmentaCantina(){
+		return ementasCantina;
+	}
+	
+	private Ementa makeEmenta(int first, int last){
+		Ementa em = new Ementa();
+		em.pratos = new ArrayList<EmentasPicker.Pratos>();
+		
+		for(int i=first; i<=last; i++){
+			Pratos p = new Pratos();
+			String[] tmp = conteudoLinhas[i].split("<td>");
+			// Everything is correct
+			if(tmp.length==3){
+				p.tipo = tmp[1];
+				p.prato = tmp[2];
+				em.pratos.add(p);
+			}
+			//Maybe the plate is not set
+			else if(tmp.length==2){
+				//TODO check if there is something missing
+				if(em.pratos.size()>1){
+					p.tipo = tmp[1];
+					p.prato = "";		
+					em.pratos.add(p);
+				}//in this case, probably the canteen is closed
+				else{
+					em.texto = em.pratos.get(em.pratos.size()-1).prato;
+					em.pratos = null;
+					em.aberto = false;
+					break;
+				}
+			}
+		}
+		return em;
 	}
 
-	public float getTempo(){
-		return unixTime;
-	}
 
 	public class EmentaCantina {
-		String data;
-		Cantina[] cantina = new Cantina[5];
+		long data;
+		Cantina santiago;
+		Cantina crasto;
+		Cantina snackbar;
+		
+		public EmentaCantina(){
+			data = System.currentTimeMillis()/1000;
+			santiago = new Cantina();
+			crasto = new Cantina();
+			snackbar = new Cantina();
+		}
 	}
 
 	public class Cantina {
-		String nome;
-		String hora;
-		Ementa[] ementa;
-		boolean aberto = true;
-		String texto;
+		Ementa almoco = null;
+		Ementa jantar = null;
 	}
 
 	public class Ementa {
-		String tipo;
-		String prato;
+		ArrayList<Pratos> pratos = null;
+		boolean aberto = true;
+		String texto = null;
+	}
+	
+	public class Pratos{
+		String tipo = "";
+		String prato = "";
 	}
 
 	private String regexString(String regex, String str, String replace){

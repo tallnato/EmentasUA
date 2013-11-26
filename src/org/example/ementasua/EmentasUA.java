@@ -1,12 +1,12 @@
 package org.example.ementasua;
 
-import org.example.ementasua.EmentasPicker.Cantina;
-import org.example.ementasua.EmentasPicker.Ementa;
+import org.example.ementasua.EmentasPicker.*;
 
 import android.app.ProgressDialog;
 import android.app.TabActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
@@ -23,7 +23,7 @@ import android.widget.Toast;
 
 
 public class EmentasUA extends TabActivity {
-	private EmentasPicker ep;
+	private final EmentasPicker ep = new EmentasPicker();
 	private Handler mHandler; 			// Need handler for callbacks to the UI thread
 	private ProgressDialog pPialog;
 	private final Context ct = this;
@@ -59,6 +59,7 @@ public class EmentasUA extends TabActivity {
 		inflater.inflate(R.menu.menu, menu);
 		return true;
 	}
+	
 
 	private void createTabs(){
 		Resources rec = getResources();
@@ -75,71 +76,79 @@ public class EmentasUA extends TabActivity {
 
 
 	private void getEmentas(){
-		if(ep == null){
-			ep = new EmentasPicker();
+		Log.d("CENAS", "setted=="+ep.getSetted());
+		if( !ep.getSetted()){
 			if(!ep.Start()){
 				pPialog.cancel();
 				//Toast.makeText(ct, "Erro a obter ementas", Toast.LENGTH_SHORT).show();
 			}
-		}
+		}		
 	}
 
 	private void printSantiago() {
-		Cantina Salm, Sjant;
 		TableLayout tl;
-		Salm = ep.getCantina(0);
-		Sjant = ep.getCantina(1);
+		
+		Cantina santiago = ep.getEmentaCantina().santiago;
 
 		// Obter o TableLayout da view Santiago
 		tl = (TableLayout) this.findViewById(R.id.tablelayoutS);
 
-		printEmenta(tl, Salm.ementa,1+ tl.indexOfChild(tl.findViewById(R.id.linetopS)));
-		printEmenta(tl, Sjant.ementa,1+ tl.indexOfChild(tl.findViewById(R.id.linebottomS)));
+		printEmenta(tl, santiago.almoco,1+ tl.indexOfChild(tl.findViewById(R.id.linetopS)));
+		printEmenta(tl, santiago.jantar,1+ tl.indexOfChild(tl.findViewById(R.id.linebottomS)));
 	}
 
-	@SuppressWarnings("unused")
 	private void printCastro() {
-		Cantina alm, jant;
 		TableLayout tl;
-		alm = ep.getCantina(2);
-		jant = ep.getCantina(3);
 
+		Cantina crasto = ep.getEmentaCantina().crasto;
+		
 		// Obter o TableLayout da view Santiago
 		tl = (TableLayout) this.findViewById(R.id.tablelayoutC);
 
-		printEmenta(tl, alm.ementa,1+ tl.indexOfChild(tl.findViewById(R.id.linetopC)));
-		printEmenta(tl, jant.ementa,1+ tl.indexOfChild(tl.findViewById(R.id.linebottomC)));
+		printEmenta(tl, crasto.almoco,1+ tl.indexOfChild(tl.findViewById(R.id.linetopC)));
+		printEmenta(tl, crasto.jantar,1+ tl.indexOfChild(tl.findViewById(R.id.linebottomC)));
 	}
 
-	@SuppressWarnings("unused")
 	private void printSnackBar() {
-		Cantina alm;
 		TableLayout tl;
-		alm = ep.getCantina(4);
+		
+		Cantina snackbar = ep.getEmentaCantina().snackbar;
 
 		// Obter o TableLayout da view 
 		tl = (TableLayout) this.findViewById(R.id.tablelayoutSB);
 
-		printEmenta(tl, alm.ementa,1+ tl.indexOfChild(tl.findViewById(R.id.linetopSB)));
+		printEmenta(tl, snackbar.almoco,1+ tl.indexOfChild(tl.findViewById(R.id.linetopSB)));
 	}	
 
-	private void printEmenta(TableLayout tl, Ementa[] ement, int index){
-		TableRow tb;
-		int length = ement.length;
-		for(int i=0; i<length; i++){
-			
-			if(ement[i] == null){
-				length--;
-				i--;
+	private void printEmenta(TableLayout tl, Ementa ement, int index){
+		if(ement.aberto){
+			for(int i=0; i<ement.pratos.size(); i++){
+				Pratos p = ement.pratos.get(i);
+				tl.addView( getRow(p) , index+i);
 			}
-			else{
-				tb = getRow(ement[i]);
-				tl.addView( getRow(ement[i]) , index+i);
-			}
-		}   
+		}else{
+			tl.addView( getRow(ement.texto) , index);
+		} 
 	}
 
-	private TableRow getRow(Ementa ementa){
+	private TableRow getRow(String str){
+		TableRow tr = new TableRow(this);
+		TextView text = new TextView(this);
+		
+		text.setText(str);
+		text.setPadding(15, 10, 5, 20);
+		text.setTextColor(getResources().getColor(R.color.prato));
+		text.setTextSize(TypedValue.COMPLEX_UNIT_DIP,17);
+
+		TableRow.LayoutParams params = new TableRow.LayoutParams();
+		params.span = 2;
+		
+		tr.addView(text, params);
+		
+		return tr;
+	}
+	
+	private TableRow getRow(Pratos pratos){
 		TableRow tr ;
 		TextView tv_tipo;
 		TextView tv_prato ;
@@ -147,17 +156,17 @@ public class EmentasUA extends TabActivity {
 		tr = new TableRow(this);
 		tv_tipo = new TextView(this);
 		tv_prato = new TextView(this);
+		
 
 
-
-		tv_tipo.setText( ementa.tipo);
+		tv_tipo.setText( pratos.tipo);
 		tv_tipo.setTextColor(getResources().getColor(R.color.tipo));
 		tv_prato.setTextSize(TypedValue.COMPLEX_UNIT_DIP,13);
 		tv_tipo.setPadding(4, 2, 5, 0);
 		//tv_tipo.setShadowLayer(3, 0, 0, Color.parseColor("#FFFFFF"));
 
 
-		tv_prato.setText( ementa.prato);
+		tv_prato.setText( pratos.prato);
 		tv_prato.setTextColor(getResources().getColor(R.color.prato));
 		tv_prato.setPadding(15, 5, 5, 0);
 		tv_prato.setTextSize(TypedValue.COMPLEX_UNIT_DIP,15);
@@ -169,37 +178,35 @@ public class EmentasUA extends TabActivity {
 		tr.addView(tv_prato);
 
 		
-		Log.d("cenas", ementa.tipo+" > "+ementa.prato);
+		Log.d("cenas", pratos.tipo+" > "+pratos.prato);
 
 		return tr;
 	}	 
 
 
+	protected void startParseOfEmentas() {		
+			pPialog = ProgressDialog.show(this, "", "A carregar...", true);
+			// Fire off a thread to do some work that we shouldn't do directly in the UI thread
+			Thread t = new Thread() {
+				public void run() {
+					getEmentas();
+					mHandler.post(mUpdateResults);
+				}
+			};
+			t.start();
+			
+	}
 
+	
+	
+	
 	// Create runnable for posting
 	private final Runnable mUpdateResults = new Runnable() {
 		public void run() {
 			updateResultsInUi();
 		}
 	};
-
-
-	protected void startParseOfEmentas() {
-				
-		pPialog = ProgressDialog.show(this, "", "A carregar...", true);
-		// Fire off a thread to do some work that we shouldn't do directly in the UI thread
-		Thread t = new Thread() {
-			public void run() {
-
-				getEmentas();
-				mHandler.post(mUpdateResults);
-				
-			}
-		};
-		t.start();
-		
-	}
-
+	
 	private void updateResultsInUi() {
 
 		printSantiago();
