@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-	<color name="tipo">#1CC101</color>
-	<color name="prato">#FFFFFF</color>
-	<color name="line">#1CC101</color>
+    <color name="line">#ff3b3b3b</color>
+	<color name="type">#ff96aa39</color>
+	<color name="name">#000000</color>
 	<color name="line_light">#4CFE2E</color>
 	<color name="black">#000000</color>
 	<color name="highlight">#55C0C0C0</color>
+	
+	<color name="title_bgc">#ff3b3b3b</color>
+	<color name="title_text">#FFFFFF</color>
+	<color name="background">#FFFFFF</color>
+	<color name="item_background1">#DBDBDB</color>
+	<color name="item_background2">#EBEBEB</color>
 </resources>

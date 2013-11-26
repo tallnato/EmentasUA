@@ -1,13 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    
+    <string-array name="list_canteens">
+        <item>Santiago</item>
+        <item>Crasto</item>
+        <item>SnackBar</item>
+    </string-array>
+    
+    <string-array name="list_canteens_vals">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    
 	<string name="app_name">EmentasUA</string>
     <string name="app_title">Ementas da Universidade de Aveiro</string>
+    
+    <string name="lunch">Almoço</string>
+    <string name="dinner">Jantar</string>
     
     <!--  Menu -->
     <string name="about_label">Sobre</string>
     <string name="about_shortcut">1</string>
     
-    <string name="refresh_label">Refrescar</string>
+    <string name="refresh_label">Actualizar</string>
     <string name="refresh_shortcut">2</string>
     
     <string name="prefs_label">Preferências</string>
@@ -15,9 +31,26 @@
     
     <!--  Sobre -->
     <string name="about_title">Sobre</string>
-    <string name="about_text">Aplicação para mostrar as ementas das cantinas da Universidade de Aveiro\n\n
-    						  Autor: Renato Almeida \n&lt;renato.m.alm@gmail.com&gt;		
-    						</string>    
+    <string name="about_text">\n\nAplicação que permite aos alunos, professores, visitantes, etc da Universidade de Aveiro consultarem com facilidade as ementas das cantinas do Campus de Santiago.
+        					      \nEsta aplicação utiliza as APIs fornecidas pelo serviço <i>Academic Playground &amp; Innovation</i>.
+    						  \n\nAutor: <b>Renato Almeida</b> <i>\n&lt;renato.m.alm@gmail.com&gt;</i>		
+    						</string> 
+    <string name="info_Santiago"><b>Horário:</b>
+								\n\t<b>De seg a sex:</b>
+            						\n\t\tAlmoço 12h00 – 14h30
+            						\n\t\tJantar 18h30 – 20h30
+								\n\t<b>Sab e Dom:</b>
+								    \n\t\tAlmoço 13h00 – 14h30
+								    \n\t\tJantar 19h00 – 20h30\n
+	</string>		
+    <string name="info_Crasto"><b>Horário:</b>
+								\n\t<b>De seg a sex:</b>
+								    \n\t\tAlmoço: 12h00 – 14h30
+								\n\t<b>Sab e Dom:</b>
+								    \n\t\tAlmoço 13h00 – 14h30</string>
+    <string name="info_SnackBar"><b>Horário:</b>
+									\n\t<b>Segunda a Sexta-feira</b>
+									       \n\t\tAlmoço: 12h00 – 14h30</string>				
     
     <!--  Titulos de activity  -->
     <string name="santiago">Santiago</string> 
@@ -28,16 +61,44 @@
     <!-- Preferencias -->
     <string name="info_title">Ementa completa</string>
     <string name="info_summary_on">Mostra ementa toda</string>
-    <string name="info_summary_off">Mostra só os pratos</string>
+    <string name="info_summary_off">Mostra só os pratos e sopa</string>
+    
+    <string name="varias_title">Ementa próximos dias</string>
+    <string name="varias_summary_on">Mostra a ementa dos proximos dias</string>
+    <string name="varias_summary_off">Mostra só ementa do dia</string>
     
     
     <string name="listCant_title">Cantina inicial</string>
-    <string name="listCant_summary">Cantina que mostra quando inicia</string>
+    <string name="listCant_summary">Cantina a mostrar quando inicia</string>
     
     <string name="mostra_title">Ordem Ementas</string>
     <string name="mostra_summary_on">Mostra ementa da refeição mais proxima</string>
-    <string name="mostra_summary_off">Mostra almoço e depois jantar</string>
+    <string name="mostra_summary_off">Mostra ementas normalmente</string>
     
+    <string name="save">Guardar</string>
     <!--  Misc -->
     <string name="notNet">Impossivel retirar as informações, por favor verifique se tem internet!!</string>
+    <string name="dev">Desenvolvido por <b><i>Renato Almeida</i></b></string>
+    
+    <string name="start_downloading">A obter ementas&#8230;</string>
+    <string name="start_finnished">Concluido&#8230;</string>
+    <string name="start_read_file">A ler do ficheiro&#8230;</string>
+    <string name="start_read_web">A retirar da web&#8230;</string>
+    <string name="start_error">Erro a obter ementas</string>
+    <string name="start_error_msg">Não foi possivel obter as ementas.\nPor favor ligue a wireless ou ligação de dados</string>
+    <string name="start_error_wireless">Definições</string>
+    <string name="start_error_retry">Tentar novamente</string>
+    <string name="start_error_cancel">Cancelar</string>
+    
+    <!-- Log Changes -->
+    <string name="log_title">Alterações recentes</string>
+    <string name="log_text">
+        <b>Versão 3.0:</b>
+        \n\n- Utilização da API da UA para obter as ementas
+        \n- Arrastar para os lados para alterar a cantina
+        \n- Clique longo no nome da cantina para ver horario
+        \n- Opção de partilhar as ementas
+        \n- Actualização automatica das ementas
+    </string>
 </resources>
+

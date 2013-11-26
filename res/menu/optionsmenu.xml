@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+	<item 
+		android:id="@+id/refresh"
+		android:title="@string/refresh_label"
+		android:numericShortcut="@string/refresh_shortcut"
+		android:icon="@drawable/ic_menu_refresh" />
+	<item
+		android:id="@+id/prefs"
+		android:title="@string/prefs_label"
+		android:numericShortcut="@string/prefs_shortcut"
+		android:icon="@drawable/ic_menu_prefs" />	
+	<item
+		android:id="@+id/about"
+		android:title="@string/about_label"
+		android:numericShortcut="@string/about_shortcut"
+		android:icon="@drawable/ic_menu_about"/>
+</menu>

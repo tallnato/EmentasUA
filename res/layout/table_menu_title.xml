@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+    <TableRow 
+        android:layout_width="fill_parent"
+		android:layout_height="wrap_content">
+	    <Button 
+			android:id="@+id/bt_title_lunch"
+			style="@style/Title"
+			android:text="@string/lunch"
+			android:background="@drawable/table_menu_title_select"/>
+		<Button 
+	        android:id="@+id/bt_title_dinner"
+			style="@style/Title"
+			android:text="@string/dinner"
+			android:layout_marginLeft="5dp"
+			android:background="@drawable/table_menu_title_select"/>
+		<View 
+	        android:layout_weight="1"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"/>
+		<TextView
+			   android:id="@+id/tv_title_date"
+			   style="@style/Title_Date"/> 
+		<ImageView
+	        android:id="@+id/img_share" 
+	        android:src="@drawable/share"
+	        android:layout_gravity="center"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:visibility="gone"/>
+    </TableRow>
+    <TableLayout
+        android:id="@+id/menu_title_list"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content" 
+	    android:paddingBottom="20dp">
+	</TableLayout>
+</TableLayout>
