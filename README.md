@@ -27,6 +27,11 @@ Mobile app to check the menus from the canteens of Aveiro's University
 
 
 
+
+
+## External links
+
+
 [![GooglePlayButton](https://raw.github.com/renato-almeida/EmentasUA/master/images/GooglePlayButton.png)](https://play.google.com/store/apps/details?id=org.ementasua)
 [![FBButton](https://raw.github.com/renato-almeida/EmentasUA/master/images/fb.png)](https://www.facebook.com/EmentasUA)
 [![APIButton](https://raw.github.com/renato-almeida/EmentasUA/master/images/api.png)](http://api.web.ua.pt/)
