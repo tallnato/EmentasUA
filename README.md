@@ -23,7 +23,9 @@ Mobile app to check the menus from the canteens of Aveiro's University
 
 ## Contributing
 
-So you think you found a bug? Are you really sure? Just joking, either fork this repo then create a pull request or submit an issue so I can correct it later.
+So you think you found a bug? Are you really sure (probably yes)? Just joking, either fork this repo then create a pull request or submit an issue so I can correct it later.
+
+Feel free to contribute.
 
 ## Some references
 * http://ryanharter.com/blog/2013/01/31/how-to-make-an-android-card-list/
