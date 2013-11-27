@@ -26,7 +26,8 @@ Mobile app to check the menus from the canteens of Aveiro's University
 * http://ryanharter.com/blog/2013/01/31/how-to-make-an-android-card-list/
 
 
-[![APIButton](https://raw.github.com/renato-almeida/EmentasUA/master/images/api.png)](http://api.web.ua.pt/)
-[![FBButton](https://raw.github.com/renato-almeida/EmentasUA/master/images/fb.png)](https://www.facebook.com/EmentasUA)
+
 [![GooglePlayButton](https://raw.github.com/renato-almeida/EmentasUA/master/images/GooglePlayButton.png)](https://play.google.com/store/apps/details?id=org.ementasua)
+[![FBButton](https://raw.github.com/renato-almeida/EmentasUA/master/images/fb.png)](https://www.facebook.com/EmentasUA)
+[![APIButton](https://raw.github.com/renato-almeida/EmentasUA/master/images/api.png)](http://api.web.ua.pt/)
 
