@@ -3,15 +3,15 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion "28.0.2"
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
 
     defaultConfig {
         applicationId "org.ementasua"
-        minSdkVersion 21
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion targetSdkVersion
+        versionCode 1 //TODO fix this
+        versionName rootProject.versionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -29,12 +29,29 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
-    implementation 'android.arch.navigation:navigation-fragment-ktx:1.0.0-alpha05'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
+
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$rootProject.kotlinVersion"
+
+    // UI
+    implementation "androidx.appcompat:appcompat:$rootProject.appCompatVersion"
+    implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintlayoutVersion"
+
+    // Architecture Components
+    implementation "android.arch.navigation:navigation-fragment-ktx:$rootProject.navigationFragmentVersion"
+
+    // Firebase
+    implementation "com.google.firebase:firebase-core:$rootProject.firebaseCoreVersion"
+
+    // Utils
+    implementation "androidx.core:core-ktx:$rootProject.ktxVersion"
+
+    // Local unit tests
+    testImplementation "junit:junit:$rootProject.junitVersion"
+
+    // Instrumentation tests
+    androidTestImplementation "androidx.test:runner:$rootProject.runnerVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.expressoCoreVersion"
 }
+
+apply plugin: 'com.google.gms.google-services'
