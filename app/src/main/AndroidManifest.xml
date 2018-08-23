@@ -25,6 +25,11 @@
 
         </activity-alias>
 
+
+        <meta-data
+                android:name="firebase_crashlytics_collection_enabled"
+                android:value="${crashlyticsEnabled}" />
+
     </application>
 
 </manifest>

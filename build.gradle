@@ -15,6 +15,8 @@ buildscript {
         androidGradlePluginVersion = '3.3.0-alpha06'
         appCompatVersion = '1.0.0-rc01'
         constraintlayoutVersion = '2.0.0-alpha2'
+        crashlyticsVersion = '2.9.4'
+        fabricVersion = '1.25.4'
         firebaseCoreVersion = '16.0.1'
         googleServicesVersion = '4.0.2'
         kotlinVersion = '1.2.61'
@@ -32,6 +34,7 @@ buildscript {
     repositories {
         google()
         jcenter()
+        maven { url 'https://maven.fabric.io/public' }
     }
 
     dependencies {
@@ -40,6 +43,8 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
 
         classpath "com.google.gms:google-services:$googleServicesVersion"
+
+        classpath "io.fabric.tools:gradle:$fabricVersion"
     }
 }
 
@@ -47,6 +52,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url 'https://maven.google.com/' }
     }
 }
 

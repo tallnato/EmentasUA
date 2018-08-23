@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
@@ -12,13 +13,18 @@ android {
         targetSdkVersion targetSdkVersion
         versionCode 1 //TODO fix this
         versionName rootProject.versionName
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        manifestPlaceholders = [crashlyticsEnabled: true]
     }
 
     buildTypes {
 
         debug {
             applicationIdSuffix ".debug"
+
+            manifestPlaceholders = [crashlyticsEnabled: false]
         }
 
         release {
@@ -42,6 +48,7 @@ dependencies {
 
     // Firebase
     implementation "com.google.firebase:firebase-core:$rootProject.firebaseCoreVersion"
+    implementation "com.crashlytics.sdk.android:crashlytics:$rootProject.crashlyticsVersion"
 
     // Utils
     implementation "androidx.core:core-ktx:$rootProject.ktxVersion"
