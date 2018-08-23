@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<style
+		name="Tabs"
+		parent="@android:style/Widget.TextView"
+	>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:gravity">left|center_vertical</item>
+		<item name="android:focusable">true</item>
+		<item name="android:clickable">true</item>
+		<item name="android:layout_marginRight">5dp</item>
+		<item name="android:padding">3dp</item>
+		<item name="android:textStyle">bold</item>
+		<item name="android:textColor">@color/name</item>
+	</style>
+
+	<style
+		name="EditTextStandard"
+		parent="@android:style/Widget.EditText"
+	>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_marginLeft">2dip</item>
+		<item name="android:layout_marginRight">2dip</item>
+		<item name="android:layout_marginTop">2dip</item>
+		<item name="android:layout_width">fill_parent</item>
+	</style>
+
+	<style
+		name="Entradas"
+		parent="@android:style/Widget.TextView"
+	>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_marginLeft">0dip</item>
+		<item name="android:layout_marginRight">5dip</item>
+		<item name="android:layout_marginTop">2dip</item>
+		<item name="android:textColor">#FFFFFF</item>
+	</style>
+
+	<style
+		name="Prato"
+		parent="@android:style/Widget.TextView"
+	>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_marginLeft">0dip</item>
+		<item name="android:layout_marginRight">5dip</item>
+		<item name="android:layout_marginTop">2dip</item>
+		<item name="android:textColor">#24B711</item>
+	</style>
+
+	<style name="Title"
+		parent="@android:style/Widget.TextView">
+		<item name="android:textSize">18dip</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:textColor">@color/title_text</item>
+		<item name="android:gravity">left|center_vertical</item>
+		<item name="android:paddingTop">5dip</item>
+		<item name="android:paddingLeft">9dip</item>
+		<item name="android:paddingRight">9dip</item>
+	</style>
+	
+	<style name="Title_Date"
+		parent="@android:style/Widget.TextView">
+		<item name="android:textSize">10dip</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_width">fill_parent</item>
+		<item name="android:textStyle">bold</item>
+		<item name="android:textColor">@color/black</item>
+		<item name="android:gravity">right</item>
+		<item name="android:paddingTop">7dip</item>
+		<item name="android:paddingLeft">3dip</item>
+		<item name="android:paddingRight">7dip</item>
+	</style>
+	
+	<style name="Plate.Type"
+		parent="@android:style/Widget.TextView">
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_weight">1</item>
+		<item name="android:textSize">11dip</item>
+		<item name="android:textStyle">bold</item>
+		<item name="android:gravity">left</item>
+		<item name="android:textColor">@color/type</item>
+		<item name="android:paddingTop">4dip</item>
+		<item name="android:paddingLeft">0dip</item>
+	</style>
+	
+	<style name="Plate.Name"
+		parent="@android:style/Widget.TextView">
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_width">fill_parent</item>
+		<item name="android:textSize">14dip</item>
+		<item name="android:textStyle">bold</item>
+		<item name="android:gravity">left</item>
+		<item name="android:textColor">@color/name</item>
+		<item name="android:paddingLeft">8dip</item>
+	</style>
+	
+	<style name="Line">
+		<item name="android:layout_height">1dip</item>
+		<item name="android:layout_width">fill_parent</item>
+	    <item name="android:background">@color/line</item>
+	</style>
+
+	<style
+		name="Hora"
+		parent="@android:style/Widget.TextView"
+	>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:gravity">right</item>
+		<item name="android:textColor">#FFFFFF</item>
+		<item name="android:textSize">10dip</item>
+		<item name="android:layout_weight">1</item>
+		<item name="android:layout_width">fill_parent</item>
+		<item name="android:layout_span">2</item>
+	</style>
+</resources>

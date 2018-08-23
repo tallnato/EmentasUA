@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dip" >
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="10sp"
+        android:contentDescription="@string/app_name"
+        android:gravity="left"
+        android:src="@drawable/icon" />
+
+   <TextView
+      android:id="@+id/about_content"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="top"
+      android:layout_marginLeft="15sp"
+      android:layout_marginRight="15sp"
+      android:layout_marginBottom="25sp"  
+      android:text="@string/about_text" />
+
+   <LinearLayout
+       android:id="@+id/linearLayout1"
+       android:layout_width="fill_parent"
+       android:layout_height="wrap_content"
+       android:layout_gravity="center_horizontal" >
+
+       <ImageView
+           android:id="@+id/iv_market"
+           android:layout_width="47dp"
+           android:layout_height="47dp"
+           android:src="@drawable/play_logo"
+           android:layout_marginRight="20dp"
+           android:layout_gravity="center_vertical" />
+
+       <ImageView
+           android:id="@+id/iv_fb"
+           android:layout_width="47dp"
+           android:layout_height="47dp"
+           android:src="@drawable/fb"
+           android:layout_marginRight="20dp"
+           android:layout_gravity="center_vertical" />
+
+       <ImageView
+           android:id="@+id/iv_api"
+           android:layout_width="47dp"
+           android:layout_height="47dp"
+           android:src="@drawable/api"
+           android:layout_gravity="center_vertical" />
+   </LinearLayout>
+
+</LinearLayout>
