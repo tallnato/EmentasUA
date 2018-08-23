@@ -53,6 +53,9 @@ dependencies {
     // Utils
     implementation "androidx.core:core-ktx:$rootProject.ktxVersion"
 
+    // Date and time
+    implementation "com.jakewharton.threetenabp:threetenabp:$rootProject.threetenabpVersion"
+
     // Leak Canary
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
     releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
