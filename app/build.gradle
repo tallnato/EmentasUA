@@ -53,6 +53,10 @@ dependencies {
     // Utils
     implementation "androidx.core:core-ktx:$rootProject.ktxVersion"
 
+    // Leak Canary
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
+    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
+
     // Local unit tests
     testImplementation "junit:junit:$rootProject.junitVersion"
 

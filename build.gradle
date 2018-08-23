@@ -21,6 +21,7 @@ buildscript {
         googleServicesVersion = '4.0.2'
         kotlinVersion = '1.2.61'
         ktxVersion = "1.0.0-rc01"
+        leakCanaryVersion = "1.6.1"
         navigationFragmentVersion = '1.0.0-alpha05'
 
         // Local unit tests
